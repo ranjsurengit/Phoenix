@@ -7,3 +7,9 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 *.log
+
+# playwright-bdd generated output
+.features-gen/
+
+# Secrets - never commit
+.env

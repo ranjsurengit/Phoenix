@@ -1,14 +1,24 @@
 {
   "name": "phoenix_framework",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright BDD test automation - Phoenix",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx bddgen && npx playwright test",
+    "test:chromium": "npx bddgen && npx playwright test --project=chromium",
+    "test:login": "npx bddgen && npx playwright test --project=chromium --grep @login",
+    "report": "npx playwright show-report"
+  },
   "keywords": [],
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.2.0",
-    "playwright-bdd": "^9.2.0"
+    "dotenv": "^17.4.2",
+    "playwright-bdd": "^9.2.0",
+    "xlsx": "^0.18.5"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }
