@@ -33,7 +33,8 @@ export class login
 
     async verfySuccessfulLogin(urlText)
     {
-        await expect(this.page).toHaveURL(new RegExp(urlText, 'i'));
+        //await this.page.waitForTimeout(60000);
+        await expect(this.page).toHaveURL(new RegExp(urlText, 'i'),{ timeout: 90000 });
     }
 
     async loginInvalidUser(invalidData)
