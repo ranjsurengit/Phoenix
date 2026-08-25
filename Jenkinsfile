@@ -36,7 +36,13 @@ pipeline {
     
     post {
         always {
-            archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'allure-results']]
+            ])
         }
     }
 }
