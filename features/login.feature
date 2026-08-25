@@ -1,21 +1,15 @@
-@login
-Feature: SuiteCRM Login Functionality
+@login 
+Feature: Verify login
 
-  Background:
-    Given user navigate to the SuiteCRM login page
+Background:
+   Given User navigates to the application
 
-  @positive
-  Scenario: Successful Login with Valid Credentials
-    When user logs in with valid username and password
-    Then user should be redirected to the home page
+Scenario: Verify that the user is able to login with valid credentials
+  Given User is on Login page 
+  When User Logs In after entering Valid credentials
+  Then User verifies URL contains "home"
 
-  @negative
-  Scenario: failed Login with wrong password
-    When user log in with valid username and wrong password
-    Then user should see login error message is displayed
-
-  
-
-  
-
-  
+Scenario: verify that the user is not able to loging with invalid credentials
+   Given User is on Login page 
+  When User trying to Log In after entering "invalidcredential"
+  Then User should see the error message "Login credentials incorrect"

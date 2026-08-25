@@ -2,7 +2,7 @@
 Feature: Account Creation Page
 
 Background:
-    Given user logged into SuiteCRM
+    Given User should have logged into Suite CRM application
 
 @UI
 Scenario: Create accounts page UI elements are displayed

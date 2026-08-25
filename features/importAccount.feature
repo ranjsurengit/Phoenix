@@ -2,7 +2,7 @@
 Feature: Account Import Page
 
 Background:
-    Given user logged into SuiteCRM
+    Given User should have logged into Suite CRM application
     Given user navigates to the Import Account page
 
 @import

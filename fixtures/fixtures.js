@@ -1,11 +1,11 @@
 import { test as base } from 'playwright-bdd';
-import { LoginPage } from '../pages/loginPage.js';
+import { login } from '../pages/login.js';
 import { CreateAccountsPage } from '../pages/createAccountsPage.js';
 import { ImportAccountPage } from '../pages/importAccountPage.js';
 
 export const test = base.extend({
-  loginPage: async ({ page }, use) => {
-    await use(new LoginPage(page));
+  loginPageObj: async ({ page }, use) => {
+    await use(new login(page));
   },
 
   createAccountsPage: async ({ page }, use) => {      // object for createAccountsPage
@@ -22,3 +22,5 @@ export const test = base.extend({
   },
 
 });
+
+export { expect } from '@playwright/test';

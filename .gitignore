@@ -8,8 +8,6 @@ node_modules/
 /playwright/.auth/
 *.log
 
-# playwright-bdd generated output
-.features-gen/
-
-# Secrets - never commit
-.env
+# Allure
+allure-results/
+allure-report/

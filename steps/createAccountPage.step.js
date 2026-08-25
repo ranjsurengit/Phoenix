@@ -8,11 +8,6 @@ const { Given, When, Then } = createBdd(test);
 // Read the Excel file 
 const data = readExcelData('test-data/accountData.xlsx', 'Sheet1');
 
-Given('user logged into SuiteCRM', async ({loginPage}) => {
-      await loginPage.navigateToLoginPage();  
-      await loginPage.loginStandard();
-      await loginPage.verifyLoginSuccess();
-});
 
 Given('user is on the create account page', async ({createAccountsPage}) => {
       await createAccountsPage.navigateToCreateAccountPage();
