@@ -2,40 +2,39 @@ pipeline {
     agent any
     
     tools {
-        // Ensure you have NodeJS configured in Jenkins Global Tool Configuration
         nodejs 'NodeJS-26' 
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        // The Checkout stage is removed since Jenkins does it automatically
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                bat 'npm ci'
             }
         }
         
         stage('Install Playwright Browsers') {
             steps {
-                // Note: --with-deps may require sudo privileges on your Jenkins server
-                sh 'npx playwright install --with-deps'
+                bat 'npx playwright install --with-deps'
             }
         }
         
         stage('Run Playwright BDD Tests') {
             steps {
-                sh 'npx bddgen'
-                sh 'npx playwright test'
+                bat 'npx bddgen'
+                // This ensures failing tests mark the build as UNSTABLE (Yellow) 
+                // instead of a fatal pipeline FAILURE (Red)
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    bat 'npx playwright test'
+                }
             }
         }
     }
     
     post {
         always {
+            // The report will generate whether tests pass or fail
             allure([
                 includeProperties: false,
                 jdk: '',
