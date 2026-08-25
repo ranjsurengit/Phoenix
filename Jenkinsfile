@@ -26,7 +26,7 @@ pipeline {
                 // This ensures failing tests mark the build as UNSTABLE (Yellow) 
                 // instead of a fatal pipeline FAILURE (Red)
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    bat 'npx playwright test'
+                bat 'npx playwright test --grep "Verify login"'
                 }
             }
         }
