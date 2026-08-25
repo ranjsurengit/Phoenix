@@ -5,6 +5,11 @@ pipeline {
         nodejs 'NodeJS-26' 
     }
 
+    environment {
+        URL = 'http://localhost:8080'
+    }
+
+
     stages {
         // The Checkout stage is removed since Jenkins does it automatically
         
