@@ -13,8 +13,7 @@ export class ImportAccountPage {
     }
     async navigateToImportAccountPage(){
          await this.accountLink.hover();
-         await expect(this.clickImportAccount).toBeVisible({ timeout: 60000});
-         await this.clickImportAccount.click();
+         await this.clickImportAccount.click({ timeout: 5000});
     }
     async verifyImportPageTitle(){
         await expect(this.importPageTitle).toBeVisible();
