@@ -58,6 +58,9 @@ export class CreateAccountsPage {
     await this.saveButton.waitFor({state: 'visible',timeout: 80000});
     await this.saveButton.click();
   }
+  async verifycreatedAccountDetails(){
+    await expect(this.createdAccountDetails).toBeVisible();
+  }
   async fillCreateAccount(data) {
     await this.enterAccountName(data);
     await this.enterEmailAddress(data);
