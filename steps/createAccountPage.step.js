@@ -36,7 +36,7 @@ When('user enters the mandatory fields along with optional details from {string}
 
 Then('user should see the details page of the created account', async ({createAccountsPage}) => {
 
-    await expect(createAccountsPage.verifycreatedAccountDetails).toBeVisible();
+    await createAccountsPage.verifycreatedAccountDetails();
 });
 
 When('user submit account form with empty account name from {string}', async ({createAccountsPage,accountData},testCase) => {
