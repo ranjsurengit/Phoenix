@@ -61,7 +61,6 @@ export class CreateAccountsPage {
   async verifycreatedAccountDetails(){
     await expect(this.createdAccountDetails).toBeVisible();
   }
-
   async fillCreateAccount(data) {
     await this.enterAccountName(data);
     await this.enterEmailAddress(data);
