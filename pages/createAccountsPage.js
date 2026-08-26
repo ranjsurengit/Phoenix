@@ -22,7 +22,7 @@ export class CreateAccountsPage {
     this.shippingState = page.locator('.dynamic-field-name-shipping_address_state').getByRole('textbox');
     this.shippingCountry = page.locator('.dynamic-field-name-shipping_address_country').getByRole('textbox');
     this.saveButton = page.getByRole('button', { name: 'Save' });
-    this.verifycreatedAccountDetails = page.locator('.record-view-name-label');
+    this.createdAccountDetails = page.locator('.record-view-name-label');
     
     // Error message without entering account name
     this.verifyErrorMessage = page.locator('scrm-dynamic-label').getByText('Missing required field: Name');
