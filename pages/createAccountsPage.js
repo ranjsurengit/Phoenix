@@ -28,8 +28,8 @@ export class CreateAccountsPage {
     this.verifyErrorMessage = page.locator('scrm-dynamic-label').getByText('Missing required field: Name');
   }
   async navigateToCreateAccountPage() {
-    await this.accountLink.click();
-    await this.createAccountClick.click();
+    await this.accountLink.hover();
+    await this.createAccountClick.click({ timeout: 5000});
   }
   async enterAccountName(data) {
     await this.nameInput.fill(String(data['Account Name']));
@@ -55,6 +55,7 @@ export class CreateAccountsPage {
     await this.shippingCountry.fill(String(data['Shipping Country']));
   }
   async clickSaveButton() {
+    await this.saveButton.waitFor({state: 'visible',timeout: 80000});
     await this.saveButton.click();
   }
   async fillCreateAccount(data) {

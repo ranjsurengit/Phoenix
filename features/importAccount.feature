@@ -2,13 +2,17 @@
 Feature: Account Import Page
 
 Background:
-    Given User should have logged into Suite CRM application
-    Given user navigates to the Import Account page
+   Given User should have logged into Suite CRM application
 
-@import
+@ui
+Scenario: verify import accounts page title is displayed
+   When  user navigates to the Import Account page
+   Then   user should see page title displayed
+
+@positive
 Scenario: Upload file with Create new records only option
-    Given user is on the Step1 of upload Import file page
-    When  user upload the file "Accounts.csv"
-    When  user selects the Create new records only option
-    When  user clicks the Next button
-    Then  user should see Step2 of Confirm Import File Properties
+    Given user is on the upload Import file page
+    When  user upload the file "Accounts.csv" with "Create new records" only option
+    Then  user should see Confirm Import File Properties page
+
+    

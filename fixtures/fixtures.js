@@ -2,6 +2,7 @@ import { test as base } from 'playwright-bdd';
 import { login } from '../pages/login.js';
 import { CreateAccountsPage } from '../pages/createAccountsPage.js';
 import { ImportAccountPage } from '../pages/importAccountPage.js';
+import { ViewAccountPage } from '../pages/viewAccountPage.js';
 
 export const test = base.extend({
   loginPageObj: async ({ page }, use) => {
@@ -20,7 +21,10 @@ export const test = base.extend({
   importAccountPage: async({ page }, use) => {
     await use(new ImportAccountPage(page));
   },
-
+  
+  viewAccountPage: async({ page }, use) => {
+    await use(new ViewAccountPage(page));
+  },
 });
 
 export { expect } from '@playwright/test';
