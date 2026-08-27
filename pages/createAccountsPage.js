@@ -6,6 +6,7 @@ export class CreateAccountsPage {
     this.page =page;
     this.accountLink = page.locator('a').filter({ hasText: /^Accounts$/ });
     this.createAccountClick = page.getByRole('link', { name: 'Create Account' });
+    this.createAccForm = page.getByText('Create', { exact: true });
     this.nameInput = page.locator('.dynamic-field-name-name').getByRole('textbox');
     this.emailAddress = page.locator('scrm-composite-field').getByRole('textbox');
     this.officePhone = page.locator('.dynamic-field-name-phone_office').getByRole('textbox');
@@ -29,7 +30,10 @@ export class CreateAccountsPage {
   }
   async navigateToCreateAccountPage() {
     await this.accountLink.hover();
-    await this.createAccountClick.click({ timeout: 5000});
+    await this.createAccountClick.click({ timeout: 3000});
+  }
+  async verifyAccFormDisplayed(){
+     await expect(this.createAccForm).toBeVisible();
   }
   async enterAccountName(data) {
     await this.nameInput.fill(String(data['Account Name']));
@@ -55,10 +59,9 @@ export class CreateAccountsPage {
     await this.shippingCountry.fill(String(data['Shipping Country']));
   }
   async clickSaveButton() {
-    await this.saveButton.waitFor({state: 'visible',timeout: 80000});
     await this.saveButton.click();
   }
-  async verifycreatedAccountDetails(){
+   async verifycreatedAccountDetails(){
     await expect(this.createdAccountDetails).toBeVisible();
   }
   async fillCreateAccount(data) {

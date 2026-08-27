@@ -14,24 +14,30 @@ export class ViewAccountPage{
     }
 
     async navigateToViewAccountPage(){
+       // await expect(this.accountLink).toBeVisible({ timeout: 30000 });
         await this.accountLink.hover();
-        await this.clickViewAccount.click({ timeout: 5000});
-        
+        await expect(this.clickViewAccount).toBeVisible();
+        await this.clickViewAccount.click({ timeout: 3000});
+
     }
 
     async verifyViewAccPageTitle(){
-        await expect(this.viewAccPageTitle).toBeVisible({ timeout: 60000});
+        await expect(this.viewAccPageTitle).toBeVisible();
     }
 
     async clickAccountName(accountName){
-        await this.accountNameLinks.filter({hasText: accountName}).click();
+        const link = this.accountNameLinks.filter({ hasText: accountName });
+       // await link.waitFor({state: 'visible',timeout: 80000});
+        await link.click();
     }
 
     async verifyAccountDetailsPage(expectedName){
+        await expect(this.page).toHaveURL(new RegExp('#/accounts/record/'));
         await expect(this.accountName).toHaveText(expectedName);
     }
 
     async clickSelectAccount(){
+        //await this.selectAccount.waitFor({state: 'visible',timeout: 80000});
         await this.selectAccount.click();
     }
 

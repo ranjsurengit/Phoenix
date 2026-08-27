@@ -13,8 +13,8 @@ Given('user is on the create account page', async ({createAccountsPage}) => {
       await createAccountsPage.navigateToCreateAccountPage();
 });
 
-Then('user should see the create account form displayed', async ({page}) => {
-     await expect(page.getByText('Create', { exact: true })).toBeVisible();
+Then('user should see the create account form displayed', async ({createAccountsPage}) => {
+     await createAccountsPage.verifyAccFormDisplayed();
 });
 
 When('user enters the mandatory fields along with optional details from {string}', async ({createAccountsPage,accountData},testCase) => {
