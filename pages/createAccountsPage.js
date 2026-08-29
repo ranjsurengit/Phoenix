@@ -1,12 +1,13 @@
 import { expect } from '@playwright/test';
 
+
+
 export class CreateAccountsPage {
  
   constructor(page) {
     this.page =page;
     this.accountLink = page.locator('a').filter({ hasText: /^Accounts$/ });
     this.createAccountClick = page.getByRole('link', { name: 'Create Account' });
-    this.createAccForm = page.getByText('Create', { exact: true });
     this.nameInput = page.locator('.dynamic-field-name-name').getByRole('textbox');
     this.emailAddress = page.locator('scrm-composite-field').getByRole('textbox');
     this.officePhone = page.locator('.dynamic-field-name-phone_office').getByRole('textbox');
@@ -29,11 +30,13 @@ export class CreateAccountsPage {
     this.verifyErrorMessage = page.locator('scrm-dynamic-label').getByText('Missing required field: Name');
   }
   async navigateToCreateAccountPage() {
+    await this.accountLink.waitFor({state: 'visible',timeout: 30000});
     await this.accountLink.hover();
-    await this.createAccountClick.click({ timeout: 3000});
+    await this.createAccountClick.click();
   }
-  async verifyAccFormDisplayed(){
-     await expect(this.createAccForm).toBeVisible();
+  async verifyEmptyAccFormDisplayed(){
+     await expect(this.page).toHaveURL(/#\/accounts\/edit/);
+     await expect(this.nameInput).toBeVisible({timeout: 8000});
   }
   async enterAccountName(data) {
     await this.nameInput.fill(String(data['Account Name']));

@@ -14,7 +14,7 @@ Given('user is on the create account page', async ({createAccountsPage}) => {
 });
 
 Then('user should see the create account form displayed', async ({createAccountsPage}) => {
-     await createAccountsPage.verifyAccFormDisplayed();
+     await createAccountsPage.verifyEmptyAccFormDisplayed();
 });
 
 When('user enters the mandatory fields along with optional details from {string}', async ({createAccountsPage,accountData},testCase) => {

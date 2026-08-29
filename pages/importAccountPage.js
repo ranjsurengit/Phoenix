@@ -1,4 +1,5 @@
-import {expect} from '@playwright/test';
+import { expect } from '@playwright/test';
+
 
 export class ImportAccountPage {
     constructor(page) {
@@ -13,9 +14,10 @@ export class ImportAccountPage {
     }
     async navigateToImportAccountPage(){
          await this.accountLink.hover();
-         await this.clickImportAccount.click({ timeout: 5000});
+         await this.clickImportAccount.click();
     }
     async verifyImportPageTitle(){
+        await this.importPageTitle.waitFor({state: 'visible',timeout: 80000});
         await expect(this.importPageTitle).toBeVisible();
     }
     async chooseFileToUpload(filePath){

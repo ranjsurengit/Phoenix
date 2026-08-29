@@ -1,4 +1,4 @@
-import { expect } from "@playwright/test";
+import { expect } from '@playwright/test';
 
 export class ViewAccountPage{
     constructor(page){
@@ -14,10 +14,9 @@ export class ViewAccountPage{
     }
 
     async navigateToViewAccountPage(){
-       // await expect(this.accountLink).toBeVisible({ timeout: 30000 });
+        await this.accountLink.waitFor({state: 'visible',timeout: 20000});
         await this.accountLink.hover();
-        await expect(this.clickViewAccount).toBeVisible();
-        await this.clickViewAccount.click({ timeout: 3000});
+        await this.clickViewAccount.click();
 
     }
 

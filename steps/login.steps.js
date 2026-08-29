@@ -17,7 +17,7 @@ When('User Logs In after entering Valid credentials', async ({ loginPageObj }) =
 });
 
 Then('User verifies URL contains {string}', async ({ loginPageObj }, urlText) => {
-  await loginPageObj.verfySuccessfulLogin(urlText);
+  await loginPageObj.verifySuccessfulLogin(urlText);
 
 });
 
