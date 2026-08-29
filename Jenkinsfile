@@ -27,7 +27,7 @@ pipeline {
                 // instead of a fatal pipeline FAILURE (Red)
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     withEnv(['URL=http://localhost:8080']) {
-                        bat 'npx playwright test --grep "Verify login"'
+                        bat 'npx playwright test'
                     }
                 }
                 // Debug visibility in Jenkins logs to ensure Allure input exists
