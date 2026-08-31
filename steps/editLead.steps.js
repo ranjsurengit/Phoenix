@@ -1,7 +1,7 @@
 import { createBdd } from 'playwright-bdd';
 import { test, expect } from '../fixtures/fixtures.js';
 import editLeadData from '../test-data/editLeadData.json' with { type: 'json' };
-const logger = require('../utils/logger');
+import logger from '../utils/logger.js';
 
 const { Given, When, Then } = createBdd(test);
 
