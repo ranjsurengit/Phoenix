@@ -1,0 +1,11 @@
+{
+     "searchPositive": {
+        "FIRST_NAME" : "Paula",
+        "LAST_NAME" : "Bevers"
+    },
+
+    "searchNegative": {
+        "FIRST_NAME" : "ranj",
+        "LAST_NAME" : "gand"
+    }
+}
