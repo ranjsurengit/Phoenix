@@ -1,9 +1,9 @@
 pipeline {
     agent any
     
-    tools {
-        nodejs 'NODEJS-26'
-    }
+   tools {
+    nodejs 'NodeJS-26'
+}
 
     stages {
         // The Checkout stage is removed since Jenkins does it automatically
