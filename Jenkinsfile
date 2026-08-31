@@ -1,9 +1,9 @@
 pipeline {
     agent any
     
-   tools {
-    nodejs 'NodeJS-26'
-}
+    tools {
+        nodejs 'NodeJS-26' 
+    }
 
     stages {
         // The Checkout stage is removed since Jenkins does it automatically
@@ -16,7 +16,7 @@ pipeline {
         
         stage('Install Playwright Browsers') {
             steps {
-                bat 'npx playwright install'
+                bat 'npx playwright install --with-deps'
             }
         }
         
@@ -26,12 +26,8 @@ pipeline {
                 // This ensures failing tests mark the build as UNSTABLE (Yellow) 
                 // instead of a fatal pipeline FAILURE (Red)
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    withEnv(['URL=http://localhost:8080']) {
-                        bat 'npx playwright test --grep "Verify login"'
-                    }
+                    bat 'npx playwright test'
                 }
-                // Debug visibility in Jenkins logs to ensure Allure input exists
-                bat 'if exist allure-results (echo allure-results found & dir allure-results) else (echo allure-results missing)'
             }
         }
     }
