@@ -6,18 +6,24 @@ class QuotePage {
     // Iframe reference
     this.iframe = page.frameLocator('iframe');
     this.quotesMenu = page.locator('a').filter({ hasText: /^Quotes$/ });
-    this.createQuoteLink = page.getByRole('link', { name: 'Create Quote', exact: true });          
-    this.saveBtn = page.getByRole('button', { name: 'Save' });
+    this.createQuoteLink = page.getByRole('link', { name: 'Create Quote', exact: true });        
+    this.assigned_to = page.frameLocator('iframe').locator(`//input[@id='assigned_user_name']`);
+    this.approval = page.frameLocator('iframe').locator(`//select[@id='approval_status']`);
+    this.oppertunity = page.frameLocator('iframe').locator(`//input[@id='opportunity']`);
+    this.invoice = page.frameLocator('iframe').locator(`//select[@id='invoice_status']`);
+    this.payment = page.frameLocator('iframe').locator(`//select[@id='term']`);
+    this.grand_total = page.frameLocator('iframe').locator(`//input[@id='total_amount']`);
+    //this.saveBtn = this.iframe.getByRole('button', { name: 'Save' });
     this.expectedMessage = 'Missing required field: Title';
 
   }
-  async goto(){
-    //await this.page.waitForFunction(() => document.readyState === 'complete');
-    await this.page.waitForLoadState('networkidle');
-    await this.page.goto('https://suite8demo.suiteondemand.com/#/home');
-    //await this.page.waitForLoadState('networkidle');
-    //await this.page.waitForFunction(() => document.readyState === 'complete');    
-  }
+  // async goto(){
+  //   //await this.page.waitForFunction(() => document.readyState === 'complete');
+  //   await this.page.waitForLoadState('networkidle');
+  //   await this.page.goto('https://suite8demo.suiteondemand.com/#/home');
+  //   //await this.page.waitForLoadState('networkidle');
+  //   //await this.page.waitForFunction(() => document.readyState === 'complete');    
+  // }
 
   async createQuote(){    
     // Wait for Quotes menu
@@ -44,7 +50,6 @@ async verifyCreateQuoteForm() {
 async fillQuoteForm(dataTable){
 
     const [title, valid_until, quote_stage] = dataTable.rows()[0];
-
     // Title
     const titleInput = this.iframe.locator('#name');
     //await titleInput.waitFor({ state: 'visible', timeout: 80000  });
@@ -59,15 +64,17 @@ async fillQuoteForm(dataTable){
     const stageSelect = this.iframe.locator('#stage');
     //await stageSelect.waitFor({ state: 'visible', timeout: 80000 });
     await stageSelect.selectOption(quote_stage);
-//   const rows = dataTable.rows(); // array of arrays
-//   const [title, valid_until, quote_stage] = rows[0];
-//   await this.page.waitFor({state: 'visible',timeout: 80000});
-//   await this.page.frameLocator('iframe').locator(`//input[@id='name']`).fill(title);
-//   await this.page.waitFor({state: 'visible',timeout: 80000});
-//   await this.page.frameLocator('iframe').locator(`//input[@id='expiration']`).fill(valid_until);
-//   await this.page.waitFor({state: 'visible',timeout: 80000});
-//   await this.page.frameLocator('iframe').locator(`//select[@id='stage']`).selectOption(quote_stage);
-  
+    // const approval_status = this.iframe.locator('#approval_status')
+    // await approval_status.selectOption(approval_status);
+    // const contact = this.iframe.locator('#billing_contact')
+    // await contact.selectOption(contact);
+    // const account = this.iframe.locator('#billing_account')
+    // await account.selectOption(account);
+    // const grand_total = this.iframe.locator('#total_amount')
+    // await grand_total.fill(grand_total);
+     
+
+
 }
 async click_Save_Btn(save){
 
@@ -106,17 +113,6 @@ async leaveQuote(dataTable){
     await stageSelect.selectOption(quote_stage);
 
 
-// const rows = dataTable.rows(); // array of arrays
-//   const [title, valid_until, quote_stage] = rows[0];
-
-// await this.page.waitFor({state: 'visible',timeout: 80000});
-//   await this.page.frameLocator('iframe').locator(`//input[@id='name']`).fill(title);
-//   await this.page.waitFor({state: 'visible',timeout: 80000});
-//   await this.page.frameLocator('iframe').locator(`//input[@id='expiration']`).fill(valid_until);
-//   await this.page.waitFor({state: 'visible',timeout: 80000});
-//   await this.page.frameLocator('iframe').locator(`//select[@id='stage']`).selectOption(quote_stage);
-
-  
 }
 
 
@@ -126,6 +122,43 @@ async verifyErrorMessage(errorMessage){
   
   //await this.page.frameLocator('iframe').getByText(errorMessage);
 }
+
+async createFieldsEditable(){
+    await this.assigned_to.waitFor({state: 'visible',timeout: 80000});
+        await expect(this.assigned_to).toBeEditable();
+        await this.approval.waitFor({state: 'visible',timeout: 80000});
+        await expect(this.approval).toBeEditable();
+        await this.oppertunity.waitFor({state: 'visible',timeout: 80000});
+        await expect(this.oppertunity).toBeEditable();
+        await this.invoice.waitFor({state: 'visible',timeout: 80000});
+        await expect(this.invoice).toBeEditable();
+        await this.payment.waitFor({state: 'visible',timeout: 80000});
+        await expect(this.payment).toBeEditable();
+        await this.grand_total.waitFor({state: 'visible',timeout: 80000});
+        await expect(this.grand_total).toBeEditable();
+        
+
+    
+}
+
+async saveButtonVisibility(save){
+   // await this.saveBtn.waitFor({state: 'visible',timeout: 80000});
+const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
+   // await saveBtn.waitFor({ state: 'visible', timeout: 80000  });
+    //await saveBtn.toBeVisible();
+
+    // const saveBtn = this.iframe.getByRole('button', { name: 'Save' });
+        await expect(saveBtn).toBeVisible();
+
+}
+async saveButtonEnable(save)
+    {
+        //await this.createName.waitFor({state: 'visible',timeout: 90000});
+        //await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+        //const saveBtn = this.iframe.getByRole('button', { name: 'Save' });
+        const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
+        await expect(saveBtn).toBeEnabled();
+    }
 
 }
 

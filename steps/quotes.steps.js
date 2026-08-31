@@ -1,10 +1,11 @@
 import { createBdd } from 'playwright-bdd';
 import { login } from '../pages/login.js';
 import { QuotePage } from '../pages/QuotePage.js';
-import { test } from '../fixtures/fixtures.js';
+//import { test} from '@playwright/test';
+//import { test } from '../fixtures/fixtures.js';
 
 
-const { Given, When, Then, Before} = createBdd(test);
+const { Given, When, Then, Before} = createBdd();
 let suitecrm;
 
 Before(async ({ page }) => {
@@ -12,19 +13,7 @@ Before(async ({ page }) => {
   suitecrm = new QuotePage(page);
 });
 
-
-// Given('User should have logged into Suite CRM application', async ({loginPageObj}) => {
-//   await loginPageObj.launchApp();
-//   await loginPageObj.loginUser();
-// });
-
-//create quote form UI Validation
-Given('user is on the Home or dashboard page', async ({page}) => {
-  await suitecrm.goto();
-  
-});
-
-When('user click Create Quote from Quotes menu', async ({page}) => {
+Given('user click Create Quote from Quotes menu', async ({page}) => {
   await suitecrm.createQuote();
 });
 
@@ -55,3 +44,17 @@ Then('user should see an error message {string}', async ({}, expectedMessage) =>
   await suitecrm.verifyErrorMessage(expectedMessage);
  
 });
+
+Then('User should see that editable fields on create Quotes page are enabled', async ({}) => {
+   await suitecrm.createFieldsEditable();
+});
+
+Then('User should see the Save button on Create Quotes page', async ({}) => {
+    await suitecrm.saveButtonVisibility('SAVE');
+  
+});
+
+Then('User should see the Save button on Create Quotes page is Enabled', async ({}) => {
+    await suitecrm.saveButtonEnable('SAVE');
+});
+
