@@ -5,7 +5,9 @@ import { ImportAccountPage } from '../pages/importAccountPage.js';
 import { ViewAccountPage } from '../pages/viewAccountPage.js';
 import { createLeadPage } from '../pages/createLeadPage.js';
 import { ContactPage } from '../pages/ContactPage.js';
-//import { homePage } from '../pages/homePage.js';
+import { createDocumentPage } from '../pages/CreateDocument.js';
+import { HomePage } from '../pages/HomePage.js';
+import { viewDocumentPage } from '../pages/ViewDocument.js';
 
 export const test = base.extend({
   loginPageObj: async ({ page }, use) => {
@@ -25,7 +27,7 @@ export const test = base.extend({
     await use(new createLeadPage(page));
   },
 
-  leadData: async ({}, use) => {
+  leadData: async ({ }, use) => {
     const data = {};
     await use(data);
   },
