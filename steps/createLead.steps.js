@@ -65,7 +65,7 @@ Then('User should see that editable fields are enabled', async ({createLeadPageO
 Then('User should see the Save button on Create Lead page', async ({createLeadPageObj}) => {  // Step: Then User should see the Save button on Create Lead page
 
     await createLeadPageObj.saveButtonVisibilityUI();
-    logger.log("Save button is visible");
+    logger.info("Save button is visible");
   
 });
 
