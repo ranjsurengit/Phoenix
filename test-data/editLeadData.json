@@ -1,0 +1,20 @@
+{
+     "Status": {
+        "FIRST_NAME" : "Barbra",
+        "LAST_NAME" : "Fragoso",
+        "UpdateStatus": "Assigned"
+
+    },
+
+    "Mobile": {
+        "FIRST_NAME" : "Edgardo",
+        "LAST_NAME" : "Dockery",
+        "UpdateMobile":"9123456780"
+    },
+
+     "record": {
+        "FIRST_NAME" : "Irwin",
+        "LAST_NAME" : "Beecham"
+        
+    }
+}

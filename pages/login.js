@@ -31,7 +31,7 @@ export class login
         await this.loginBtn.click();
     }
 
-    async verifySuccessfulLogin(urlText)
+    async verfySuccessfulLogin(urlText)
     {
         //await this.page.waitForTimeout(60000);
         await expect(this.page).toHaveURL(new RegExp(urlText, 'i'),{ timeout: 90000 });
