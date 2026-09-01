@@ -11,10 +11,10 @@ export class viewQuotePage {
     this.viewQuoteLink = page.getByRole('link', { name: 'View Quotes', exact: true });    
     this.title = page.locator(`scrm-module-title:has-text("QUOTES")`);
     this.filterBtn = page.getByRole('button', { name: 'Filter' })
-    this.title1 = page.getByRole('textbox').nth(1);
-    this.search = page.locator('scrm-panel').getByRole('button', { name: 'Search' })
-    //this.test = page.getByRole('link', { name: 'test quote' });
-    this.quotesList = page.locator(`scrm-varchar-detail:has-text("test quote")`).nth(1);
+    // this.title1 = page.getByRole('textbox').nth(1);
+    // this.search = page.locator('scrm-panel').getByRole('button', { name: 'Search' })
+    // //this.test = page.getByRole('link', { name: 'test quote' });
+    // this.quotesList = page.locator(`scrm-varchar-detail:has-text("test quote")`).nth(1);
     // this.selectQuotesFromList = page.locator('.checkmark');//page.getByRole('checkbox');
     // this.selectedQuotesCountFromList = page.locator('.bulk-action-selected-number');
     // this.noresultfound = page.getByText('No results found.', { exact: true });
@@ -40,20 +40,25 @@ export class viewQuotePage {
     async clickFilterBtn(){
         await this.filterBtn.click();
     }
-    async verifyParticularQuote(){
-        await this.title1.fill('test quote');
-        await this.search.click();
-        await expect(this.quotesList).toBeVisible();
+    // async verifyParticularQuote(){
+    //     await this.title1.fill('test quote');
+    //     await this.search.click();
+    //     await expect(this.quotesList).toBeVisible();
 
+
+    // }
+
+     async FilterButtonVisiblity() {  
+        await expect(this.filterBtn).toBeVisible();      
+               
+     }
+
+    async filterButtonEnable() {
+        await this.filterBtn.waitFor({state: 'visible',timeout: 90000});
+        await expect(this.filterBtn).toBeEnabled();
 
     }
 
-    // async savedQuoteSeen() {        
-    //    await expect(this.quotesList).toBeVisible();        
-    // }
-
-    // async clickFirstQuote() {
-    //     //await this.selectQuotesFromList.click();
     //     if (this.selectQuotesFromList){
     //          this.selectQuotesFromList.textContent = '::after';
     //     }

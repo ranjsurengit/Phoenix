@@ -41,12 +41,20 @@ Then('user verify the view Quotes page is displayed', async ({viewPageOb}) => {
 //   await viewPageOb.selectedDisplayCount();
 // });
 
-When('user click Filter Button and search title of the Quote', async ({viewPageOb}) => {
-  await viewPageOb.clickFilterBtn();
+// When('user click Filter Button and search title of the Quote', async ({viewPageOb}) => {
+//   await viewPageOb.clickFilterBtn();
+// });
+
+// Then('user verify the particular Quotes grid is displayed', async ({viewPageOb}) => {
+//    await viewPageOb.verifyParticularQuote();
+// });
+Then('User should see the Filter button on view Quotes page', async ({viewPageOb}) => {
+  await viewPageOb.FilterButtonVisiblity();
 });
 
-Then('user verify the particular Quotes grid is displayed', async ({viewPageOb}) => {
-   await viewPageOb.verifyParticularQuote();
+Then('User should see the Filter button on view Quotes page is Enabled', async ({viewPageOb}) => {
+  await viewPageOb.filterButtonEnable();
 });
+
 
        

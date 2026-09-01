@@ -20,11 +20,11 @@ export class calendarPage {
 
 
   }
-  async goto(){
-    await this.page.waitForFunction(() => document.readyState === 'complete');
-    await this.page.goto('https://suite8demo.suiteondemand.com/#/home');
-    await this.page.waitForFunction(() => document.readyState === 'complete');
-  }
+  // async goto(){
+  //   await this.page.waitForFunction(() => document.readyState === 'complete');
+  //   await this.page.goto('https://suite8demo.suiteondemand.com/#/home');
+  //   await this.page.waitForFunction(() => document.readyState === 'complete');
+  // }
 
   async createschedule(){
     await this.page.locator('a').filter({ hasText: 'Calendar' }).hover();
@@ -59,19 +59,35 @@ export class calendarPage {
 
   }
 
+  async saveButtonVisibility(){
+   
+     await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+        await expect(this.saveBtn).toBeVisible();
+
+}
+async saveButtonEnabled()
+
+    {
+       
+         await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+        await expect(this.saveBtn).toBeEnabled();
+    }
+
    async clickSaveButton(){
-       //await this.saveButton.waitFor({state: 'visible',timeout: 90000});
-        await this.saveBtn.click();
+       await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+       await this.saveBtn.click();
    }
   async verifyScheduleMeeting(calendarData){
       await this.page.waitForFunction(() => document.readyState === 'complete');
+      //await this.page.waitFor({state: 'visible',timeout: 90000});
       await expect(
       this.iframe.getByRole('heading', { name: calendarData.SUBJECT })).toBeVisible();
 
 
   }
   
-async verifyErrorMessage(){   
+async verifyErrorMessage(){  
+   //await this.page.waitFor({state: 'visible',timeout: 90000});
   await expect(this.iframe.getByText(this.expectedMessage)).toBeVisible();  
 }
 } 

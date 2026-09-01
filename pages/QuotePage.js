@@ -1,12 +1,15 @@
 import { test, expect } from '@playwright/test';
 
-class QuotePage {
+export class QuotePage {
   constructor(page,) {
     this.page = page;
     // Iframe reference
     this.iframe = page.frameLocator('iframe');
     this.quotesMenu = page.locator('a').filter({ hasText: /^Quotes$/ });
-    this.createQuoteLink = page.getByRole('link', { name: 'Create Quote', exact: true });        
+    this.createQuoteLink = page.getByRole('link', { name: 'Create Quote', exact: true });  
+    this.title = page.frameLocator('iframe').locator(`//input[@id='name']`);
+    this.valid_until = page.frameLocator('iframe').locator(`//input[@id='expiration']`);
+    this.quote_stage = page.frameLocator('iframe').locator(`//select[@id='stage']`);
     this.assigned_to = page.frameLocator('iframe').locator(`//input[@id='assigned_user_name']`);
     this.approval = page.frameLocator('iframe').locator(`//select[@id='approval_status']`);
     this.oppertunity = page.frameLocator('iframe').locator(`//input[@id='opportunity']`);
@@ -14,6 +17,7 @@ class QuotePage {
     this.payment = page.frameLocator('iframe').locator(`//select[@id='term']`);
     this.grand_total = page.frameLocator('iframe').locator(`//input[@id='total_amount']`);
     //this.saveBtn = this.iframe.getByRole('button', { name: 'Save' });
+    this.saveBtn = page.frameLocator('iframe').locator(`//input[@id='SAVE']`);
     this.expectedMessage = 'Missing required field: Title';
 
   }
@@ -40,91 +44,14 @@ class QuotePage {
     //await this.page.getByRole('link', { name: 'Create Quote' }).click();
 }
 
-async verifyCreateQuoteForm() {
+async validateCreateQuoteForm() {
 
  //await expect(this.page.locator('iframe').contentFrame().getByText('Quotes CREATE Create Save')).toBeVisible();
  await this.page *['id="pagecontent"]/div[2]/h2/span'];
  
  }
-
-async fillQuoteForm(dataTable){
-
-    const [title, valid_until, quote_stage] = dataTable.rows()[0];
-    // Title
-    const titleInput = this.iframe.locator('#name');
-    //await titleInput.waitFor({ state: 'visible', timeout: 80000  });
-    await titleInput.fill(title);
-
-    // Expiration
-    const expirationInput = this.iframe.locator('#expiration');
-    //await expirationInput.waitFor({ state: 'visible', timeout: 80000  });
-    await expirationInput.fill(valid_until);
-
-    // Stage
-    const stageSelect = this.iframe.locator('#stage');
-    //await stageSelect.waitFor({ state: 'visible', timeout: 80000 });
-    await stageSelect.selectOption(quote_stage);
-    // const approval_status = this.iframe.locator('#approval_status')
-    // await approval_status.selectOption(approval_status);
-    // const contact = this.iframe.locator('#billing_contact')
-    // await contact.selectOption(contact);
-    // const account = this.iframe.locator('#billing_account')
-    // await account.selectOption(account);
-    // const grand_total = this.iframe.locator('#total_amount')
-    // await grand_total.fill(grand_total);
-     
-
-
-}
-async click_Save_Btn(save){
-
- //await this.page.frameLocator('iframe').locator('//input[@id="'+save+'"]').click();
-  const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
-   // await saveBtn.waitFor({ state: 'visible', timeout: 80000  });
-    await saveBtn.click();
-}
-
-async newQuoteSummary(){
-    await expect(
-      this.iframe.getByRole('heading', { name: 'test quote' })
-    ).toBeVisible();
-
-//await expect(this.iframe.contentFrame().getByRole('heading', { name: 'test quote' })).toBeVisible();
-}
-
-
-
-async leaveQuote(dataTable){
-    const [title, valid_until, quote_stage] = dataTable.rows()[0];
-
-    // Title
-    const titleInput = this.iframe.locator('#name');
-    await titleInput.waitFor({ state: 'visible', timeout: 80000  });
-    await titleInput.fill(title);
-
-    // Expiration
-    const expirationInput = this.iframe.locator('#expiration');
-    await expirationInput.waitFor({ state: 'visible', timeout: 80000  });
-    await expirationInput.fill(valid_until);
-
-    // Stage
-    const stageSelect = this.iframe.locator('#stage');
-    await stageSelect.waitFor({ state: 'visible', timeout: 80000  });
-    await stageSelect.selectOption(quote_stage);
-
-
-}
-
-
-async verifyErrorMessage(errorMessage){
-
-  await expect(this.iframe.getByText(errorMessage)).toBeVisible();
-  
-  //await this.page.frameLocator('iframe').getByText(errorMessage);
-}
-
 async createFieldsEditable(){
-    await this.assigned_to.waitFor({state: 'visible',timeout: 80000});
+        await this.assigned_to.waitFor({state: 'visible',timeout: 80000});
         await expect(this.assigned_to).toBeEditable();
         await this.approval.waitFor({state: 'visible',timeout: 80000});
         await expect(this.approval).toBeEditable();
@@ -141,27 +68,101 @@ async createFieldsEditable(){
     
 }
 
-async saveButtonVisibility(save){
+async excelSerialToDateString(serial) {
+  const excelEpoch = new Date(1899, 11, 30);
+  const date = new Date(excelEpoch.getTime() + serial * 86400000);
+  return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
+}
+
+
+async fillQuoteForm(quoteData){
+
+   if (quoteData.TITLE) {
+        await this.title.fill(String(quoteData.TITLE));
+        }
+        //await this.start_date.waitFor({state: 'visible',timeout: 80000});
+        // const startDate = this.excelSerialToDateString(calendarData.START_DATE);
+        // const endDate = this.excelSerialToDateString(calendarData.END_DATE);
+        await this.valid_until.fill(String(quoteData.VALID_UNTIL));
+        await this.quote_stage.selectOption(String(quoteData.QUOTE_STAGE));
+        await this.invoice.selectOption(quoteData.INVOICE_STATUS);
+        await this.approval.selectOption(quoteData.APPROVAL_STATUS);
+        await this.grand_total.fill(String(quoteData.GRAND_TOTAL));
+        await this.payment.selectOption(String(quoteData.PAYMENT_TERMS));
+        //await this.status.selectOption(String(quoteData.STATUS));
+        //await this.related_to.selectOption(String(quoteData.RELATED_TO));
+        //await this.name.fill(String(callData.REASON));
+
+
+
+}
+async saveButtonVisibility(){
    // await this.saveBtn.waitFor({state: 'visible',timeout: 80000});
-const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
+//const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
    // await saveBtn.waitFor({ state: 'visible', timeout: 80000  });
     //await saveBtn.toBeVisible();
 
     // const saveBtn = this.iframe.getByRole('button', { name: 'Save' });
-        await expect(saveBtn).toBeVisible();
+     await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+        await expect(this.saveBtn).toBeVisible();
 
 }
-async saveButtonEnable(save)
+async saveButtonEnable()
+
     {
         //await this.createName.waitFor({state: 'visible',timeout: 90000});
         //await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
         //const saveBtn = this.iframe.getByRole('button', { name: 'Save' });
-        const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
-        await expect(saveBtn).toBeEnabled();
+        //const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
+         await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+        await expect(this.saveBtn).toBeEnabled();
     }
+
+// async clickSaveButton(){
+
+//  //await this.page.frameLocator('iframe').locator('//input[@id="'+save+'"]').click();
+//   //const saveBtn = this.iframe.locator('//input[@id="'+save+'"]');
+//     await this.saveBtn.waitFor({ state: 'visible', timeout: 80000  });
+//     await this.saveBtn.click();
+// }
+
+// async newQuoteSummary(){
+//     await expect(
+//       this.iframe.getByRole('heading', { name: 'test quote' })
+//     ).toBeVisible();
+
+// //await expect(this.iframe.contentFrame().getByRole('heading', { name: 'test quote' })).toBeVisible();
+// }
+
+
+
+async clickSaveButton(){
+       await this.saveBtn.waitFor({state: 'visible',timeout: 90000});
+       await this.saveBtn.click();
+       await this.page.waitForFunction(() => document.readyState === 'complete');
+   }
+  async newQuoteSummary(quoteData){      
+      //await this.page.waitFor({state: 'visible', timeout:90000});
+      await expect(this.iframe.getByRole('heading', { name: quoteData.TITLE })).toBeVisible();
+
+  }
+  
+async verifyErrorMessage(){   
+  await expect(this.iframe.getByText(this.expectedMessage)).toBeVisible();  
+}
+
+
+
+// async verifyErrorMessage(errorMessage){
+
+//   await expect(this.iframe.getByText(errorMessage)).toBeVisible();
+  
+//   //await this.page.frameLocator('iframe').getByText(errorMessage);
+// }
+
 
 }
 
-module.exports = { QuotePage }
+
 
 

@@ -75,3 +75,10 @@ Then('User should see an error message', async ({calendarPageOb}) => {
   await calendarPageOb.verifyErrorMessage();
 });
 
+Then('User should see the Save button on schedule meeting page', async ({calendarPageOb}) => {
+  await calendarPageOb.saveButtonVisibility();
+});
+
+Then('User should see the Save button on  schedule meeting page is Enabled', async ({calendarPageOb}) => {
+  await calendarPageOb.saveButtonEnabled();
+});

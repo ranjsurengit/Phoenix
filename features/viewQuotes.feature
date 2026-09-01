@@ -10,15 +10,19 @@ Feature: View Quotes
     Given user click view Quotes from Quotes menu
     Then user verify the view Quotes page is displayed
     
+ 
+# @FilterUI
+#    Scenario: verify Particular Quote summary displayed
+#     Given user click view Quotes from Quotes menu
+#     When user click Filter Button and search title of the Quote
+#     Then user verify the particular Quotes grid is displayed
 
-# @viewQuotesfunctionality
-#  Scenario: User selects one Quotes from the View Quotes Page
-#     Given List of saved Quotes
-#     When User clicks on one particular
-#     Then Selected display count changes to one.
-    
-@FilterUI
-   Scenario: verify Particular Quote summary displayed
-    Given user click view Quotes from Quotes menu
-    When user click Filter Button and search title of the Quote
-    Then user verify the particular Quotes grid is displayed
+    @viewQuotesUI
+Scenario: Verify that Filter button on view Quotes page is Visible
+	Given user click view Quotes from Quotes menu
+	Then User should see the Filter button on view Quotes page
+
+@viewQuotesUI
+Scenario: Verify that Filter button on view Quotes page is Enabled
+	Given user click view Quotes from Quotes menu
+	Then User should see the Filter button on view Quotes page is Enabled

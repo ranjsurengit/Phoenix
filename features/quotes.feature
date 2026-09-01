@@ -14,21 +14,13 @@ Feature: Create Quote functionality
    @positive
   Scenario: verify user successfully creates a new quotes
     Given user is on the create quote page opened from quotes menubar
-    When user enter the required field details from following examples:
-     | TITLE       | VALID_UNTIL | QUOTE_STAGE |
-     | test quote  | 2026-09-27  | Negotiation |
-     | test data   | 2026-10-16  | On Hold     |
-
+    When user enter the required field details from excel file "Test_01"
     Then user should see the new quote summary
 
  @negative
      Scenario: User cannot create a quote when one required fields are empty
       Given user is on the create quote page opened from quotes menubar
-      When user save the quotes form without enter title field:
-         |    TITLE          |  VALID_UNTIL    |   QUOTE_STAGE  |
-         |                   |   2026-10-16    |  On Hold       |
-         |   project quote   |  2026-12-12     | Negotiation    |
-
+      When User save quotes form without filling title details from Excel file "Test_02"
       Then user should see an error message "Missing required field: Title"
 
 
