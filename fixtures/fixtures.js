@@ -1,6 +1,8 @@
 import { test as base } from 'playwright-bdd';
 import { login } from '../pages/login.js';
 import { createLeadPage } from '../pages/createLeadPage.js';
+import { searchLeadPage } from '../pages/searchLeadPage.js';
+import { editLeadPage } from '../pages/editLeadPage.js';
 import { calendarPage } from '../pages/calendarPage.js' 
 import { scheduleCallPage } from '../pages/scheduleCallPage.js';
 import { viewQuotePage } from '../pages/viewQuotePage.js';
@@ -22,6 +24,27 @@ export const test = base.extend({
   leadData: async ({ }, use) => {
     const data = {};
     await use(data);
+},
+
+  searchLeadPageObj: async({page},use)=>{
+    await use(new searchLeadPage(page));
+  },
+
+  searchData: async ({}, use) => {
+        const data = {};
+
+        await use(data);
+  },
+
+  editLeadPageObj: async({page},use)=>{
+    await use(new editLeadPage(page));
+  },
+
+  editData: async ({}, use) => {
+        const data = {};
+
+        await use(data);
+  
   },
 
   homePageObj: async ({ page }, use) => {
