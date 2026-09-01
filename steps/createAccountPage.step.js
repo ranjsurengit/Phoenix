@@ -2,6 +2,7 @@ import {expect} from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import {test} from '../fixtures/fixtures.js';
 import { readExcelData } from '../utils/excelReader.js';
+import logger from '../utils/logger.js';
 
 const { Given, When, Then } = createBdd(test);
 
@@ -10,11 +11,13 @@ const data = readExcelData('test-data/accountData.xlsx', 'Sheet1');
 
 
 Given('user is on the create account page', async ({createAccountsPage}) => {
-      await createAccountsPage.navigateToCreateAccountPage();
+    logger.info('Step: navigating to create account page');  
+    await createAccountsPage.navigateToCreateAccountPage();
 });
 
-Then('user should see the create account form displayed', async ({createAccountsPage}) => {
-     await createAccountsPage.verifyEmptyAccFormDisplayed();
+Then('user should see the empty account form displayed', async ({createAccountsPage}) => {
+    logger.info('Step: verifying empty account form'); 
+    await createAccountsPage.verifyEmptyAccFormDisplayed();
 });
 
 When('user enters the mandatory fields along with optional details from {string}', async ({createAccountsPage,accountData},testCase) => {
@@ -35,7 +38,7 @@ When('user enters the mandatory fields along with optional details from {string}
 });
 
 Then('user should see the details page of the created account', async ({createAccountsPage}) => {
-
+    logger.info('Step: verifying created account details page');
     await createAccountsPage.verifycreatedAccountDetails();
 });
 
@@ -57,6 +60,7 @@ When('user submit account form with empty account name from {string}', async ({c
 
 
 Then('user should see error message is displayed', async ({createAccountsPage}) => {
-  await createAccountsPage.verifyErrorMessageForInvalidAccount();
+    logger.info('Step: verifying error message');
+    await createAccountsPage.verifyErrorMessageForInvalidAccount();
 });
 

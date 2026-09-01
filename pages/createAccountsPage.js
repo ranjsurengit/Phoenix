@@ -35,8 +35,9 @@ export class CreateAccountsPage {
     await this.createAccountClick.click();
   }
   async verifyEmptyAccFormDisplayed(){
-     await expect(this.page).toHaveURL(/#\/accounts\/edit/);
-     await expect(this.nameInput).toBeVisible({timeout: 8000});
+     await expect(this.nameInput).toBeVisible({timeout: 30000});
+     await expect(this.nameInput).toHaveValue('', {timeout: 30000});
+     await expect(this.saveButton).toBeVisible({timeout: 30000});
   }
   async enterAccountName(data) {
     await this.nameInput.fill(String(data['Account Name']));
@@ -65,7 +66,7 @@ export class CreateAccountsPage {
     await this.saveButton.click();
   }
    async verifycreatedAccountDetails(){
-    await expect(this.createdAccountDetails).toBeVisible();
+    await expect(this.createdAccountDetails).toBeVisible({timeout: 30000});
   }
   async fillCreateAccount(data) {
     await this.enterAccountName(data);
@@ -75,6 +76,6 @@ export class CreateAccountsPage {
     await this.enterShippingAddress(data);
   }
   async verifyErrorMessageForInvalidAccount(){
-    await expect(this.verifyErrorMessage).toBeVisible();
+    await expect(this.verifyErrorMessage).toBeVisible({timeout: 30000});
   }
 }

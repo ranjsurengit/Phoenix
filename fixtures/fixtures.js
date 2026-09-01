@@ -14,7 +14,7 @@ export const test = base.extend({
     await use(new login(page));
   },
 
-  createAccountsPage: async ({ page }, use) => {      // object for createAccountsPage
+  createAccountsPage: async ({ page }, use) => {      
     await use(new CreateAccountsPage(page));
   },
 
@@ -49,6 +49,26 @@ export const test = base.extend({
     await use(new homePage(page));
   },
 */
+  homePageObj: async ({ page }, use) => {
+    page.on('console', msg => {
+      if (msg.type() === 'error' || msg.type() === 'warning') {
+        console.log(`[BROWSER CONSOLE ${msg.type().toUpperCase()}]:`, msg.text());
+      }
+    });
+    page.on('pageerror', err => {
+      console.log('[BROWSER UNCAUGHT EXCEPTION]:', err.stack || err.message || err);
+    });
+    await use(new HomePage(page));
+  },
+
+  createDocumentPageObj: async ({ page }, use) => {
+    await use(new createDocumentPage(page));
+  },
+
+  viewDocumentPageObj: async ({ page }, use) => {
+    await use(new viewDocumentPage(page));
+  }
+
 });
 
 export { expect } from '@playwright/test';

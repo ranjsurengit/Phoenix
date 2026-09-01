@@ -5,11 +5,10 @@ Background:
     Given User should have logged into Suite CRM application
 
 @UI
-Scenario: Create accounts page UI elements are displayed
-    Given user is on the create account page
-    Then  user should see the create account form displayed
+Scenario: Create account link opens an empty account form
+    When   user is on the create account page
+    Then  user should see the empty account form displayed
      
-
 @create
 Scenario: Create a new account with required fields
     Given user is on the create account page

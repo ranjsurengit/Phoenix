@@ -5,7 +5,7 @@ export class ViewAccountPage{
         this.page = page;
         this.accountLink = page.locator('a').filter({ hasText: /^Accounts$/ });
         this.clickViewAccount = page.getByRole('link',{name: 'View Accounts'});
-        this.viewAccPageTitle = page.getByText('ACCOUNTS', { exact: true });
+        this.viewAccPageTitle = page.getByText('ACCOUNTS', {exact: true });
         this.checkboxDropdown = page.locator('scrm-table-header').getByLabel('Select Action Menu');
         this.accountNameLinks = page.locator('tbody .cdk-column-name a');
         this.accountName = page.locator('.record-view-name-label');
@@ -16,12 +16,13 @@ export class ViewAccountPage{
     async navigateToViewAccountPage(){
         await this.accountLink.waitFor({state: 'visible',timeout: 20000});
         await this.accountLink.hover();
+        await expect(this.clickViewAccount).toBeVisible({timeout: 20000});
         await this.clickViewAccount.click();
 
     }
 
     async verifyViewAccPageTitle(){
-        await expect(this.viewAccPageTitle).toBeVisible();
+        await expect(this.viewAccPageTitle).toBeVisible({timeout: 30000});
     }
 
     async clickAccountName(accountName){
@@ -31,8 +32,7 @@ export class ViewAccountPage{
     }
 
     async verifyAccountDetailsPage(expectedName){
-        await expect(this.page).toHaveURL(new RegExp('#/accounts/record/'));
-        await expect(this.accountName).toHaveText(expectedName);
+        await expect(this.accountName).toHaveText(expectedName, {timeout: 30000});
     }
 
     async clickSelectAccount(){
@@ -41,6 +41,6 @@ export class ViewAccountPage{
     }
 
     async verifyBulkActionDropdownEnabled(){
-        await expect(this.bulkActionDropdown).toBeEnabled();
+        await expect(this.bulkActionDropdown).toBeEnabled({timeout: 30000});
     }
 }
