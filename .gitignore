@@ -7,5 +7,7 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 *.log
+
+# Allure
 allure-results/
 allure-report/
