@@ -47,6 +47,7 @@ export class login
 
     async verifyErrorMessage(expectedMessage)
     {
+        await expect(this.errorMessage).toBeVisible();
         await expect(this.errorMessage).toContainText(expectedMessage);
     }
 }

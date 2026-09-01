@@ -12,6 +12,7 @@ const testDir = defineBddConfig({
   steps: ['./steps/**/*.js', './fixtures/fixtures.js'],
 });
 
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
