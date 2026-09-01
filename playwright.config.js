@@ -9,8 +9,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
 
 const testDir = defineBddConfig({
   features: ['./features/**/*.feature'],
-  steps: ['./steps/**/*.js'],
-  importTestFrom: './fixtures/fixtures.js',
+  steps: ['./steps/**/*.js', './fixtures/fixtures.js'],
 });
 
 /**
@@ -44,7 +43,8 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
-
+    screenshot: 'on',
+    video: 'on',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
