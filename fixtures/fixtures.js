@@ -7,6 +7,10 @@ import { createLeadPage } from '../pages/createLeadPage.js';
 import { ContactPage } from '../pages/ContactPage.js';
 import { searchLeadPage } from '../pages/searchLeadPage.js';
 import { editLeadPage } from '../pages/editLeadPage.js';
+import { calendarPage } from '../pages/calendarPage.js' 
+import { scheduleCallPage } from '../pages/scheduleCallPage.js';
+import { viewQuotePage } from '../pages/viewQuotePage.js';
+import { QuotePage } from '../pages/QuotePage.js';
 import { createDocumentPage } from '../pages/CreateDocument.js';
 import { HomePage } from '../pages/HomePage.js';
 import { viewDocumentPage } from '../pages/ViewDocument.js';
@@ -90,6 +94,39 @@ export const test = base.extend({
 
   viewDocumentPageObj: async ({ page }, use) => {
     await use(new viewDocumentPage(page));
+  },
+  quotePageOb: async ({page}, use) => {
+    const quote = new QuotePage(page)
+  await use(quote);
+  },
+
+  quoteData: async ({}, use) => {
+     const dataValue1 = {};
+     await use(dataValue1);
+  },
+
+  calendarPageOb: async ({page}, use) => {
+   const calendar = new calendarPage(page);
+      await use(calendar);
+  },
+    
+  calendarData: async ({}, use) => {
+     const data1 = {};
+     await use(data1);
+  },
+
+ callPageOb: async ({page}, use) => {
+   const call = new scheduleCallPage(page);
+      await use(call);
+  },
+    
+  callData: async ({}, use) => {
+     const dataValue = {};
+     await use(dataValue);
+ },
+  
+ viewPageOb: async ({ page }, use) => {
+    await use(new viewQuotePage(page));
   }
 
 });
