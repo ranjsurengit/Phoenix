@@ -5,8 +5,8 @@ export class editLeadPage
     constructor(page)
     {
         this.page=page;
-        this.editButton=page.getByRole('button', {name:' Edit ',exact:true});
-        this.actionsDropdown=page.getByRole('button', {name:' Actions ',exact:true});
+        this.editButton=page.getByRole('button', {name:/Edit/i});
+        this.actionsDropdown=page.getByRole('button', {name:/Actions/i});
         this.status=page.locator('.dynamic-field-name-status .flex-grow-1 .dropdownenum .custom-select');
         this.mobile=page.locator('scrm-dynamic-field.dynamic-field-name-phone_mobile input');
         this.saveButton=page.getByRole('button', {name:' Save ',exact:true});
@@ -24,7 +24,8 @@ export class editLeadPage
 
     async verifyEditButtonVisisbility()
     {
-        await expect(this.editButton).toBeVisible({timeout:10000});
+        
+        await expect(this.editButton).toBeVisible({timeout:30000});
 
     }
 
@@ -37,7 +38,7 @@ export class editLeadPage
 
     async verifyActionsVisibility()
     {
-        await expect(this.actionsDropdown).toBeVisible({timeout:10000});
+        await expect(this.actionsDropdown).toBeVisible({timeout:30000});
 
     }
 

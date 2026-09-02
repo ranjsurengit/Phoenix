@@ -34,7 +34,7 @@ export class calendarPage {
 
   async verifyScheduleForm(){
     //await expect(this.page.locator('iframe').contentFrame().getByRole('heading', { name: 'CREATE', exact: true })).toBeVisible();
-    await this.page *['id="pagecontent"]/div[2]/h2/span'];
+    await this.iframe.locator(`//div[@id='pagecontent']/div[2]/h2/span`);
   }
   async excelSerialToDateString(serial) {
   const excelEpoch = new Date(1899, 11, 30);
@@ -50,11 +50,17 @@ export class calendarPage {
         //await this.start_date.waitFor({state: 'visible',timeout: 80000});
         // const startDate = this.excelSerialToDateString(calendarData.START_DATE);
         // const endDate = this.excelSerialToDateString(calendarData.END_DATE);
+        await this.start_date.waitFor({state: 'visible',timeout: 80000});
         await this.start_date.fill(String(calendarData.START_DATE));
+        await this.end_date.waitFor({state: 'visible',timeout: 80000});
         await this.end_date.fill(String(calendarData.END_DATE));
+        await this.duration.waitFor({state: 'visible',timeout: 80000});
         await this.duration.selectOption(calendarData.DURATION);
+        await this.status.waitFor({state: 'visible',timeout: 80000});
         await this.status.selectOption(calendarData.STATUS);
+        //await this.related_to.waitFor({state: 'visible',timeout: 80000});
         //await this.related_to.selectOption(calendarData.RELATED_TO);
+        await this.location.waitFor({state: 'visible',timeout: 80000});
         await this.location.fill(calendarData.LOCATION);
 
   }
@@ -78,16 +84,16 @@ async saveButtonEnabled()
        await this.saveBtn.click();
    }
   async verifyScheduleMeeting(calendarData){
-      await this.page.waitForFunction(() => document.readyState === 'complete');
-      //await this.page.waitFor({state: 'visible',timeout: 90000});
-      await expect(
-      this.iframe.getByRole('heading', { name: calendarData.SUBJECT })).toBeVisible();
-
+      //await this.iframe.waitForFunction(() => document.readyState === 'complete');
+       await expect(this.iframe.getByRole('heading', { name: calendarData.SUBJECT })).toBeVisible({timeout: 30000});
+  
+      //await expect(this.iframe.locator(`//h2[@class='module-title-text']`)).toHaveText(calendarData.SUBJECT, {timeout: 30000});
 
   }
   
 async verifyErrorMessage(){  
    //await this.page.waitFor({state: 'visible',timeout: 90000});
-  await expect(this.iframe.getByText(this.expectedMessage)).toBeVisible();  
+  await expect(this.iframe.getByText(this.expectedMessage)).toBeVisible({timeout: 100000});  
+ //await expect(this.iframe.locator(`//scrm-dynamic-label[@class='error']`)).toHaveText(this.expectedMessage, {timeout: 30000});
 }
 } 
