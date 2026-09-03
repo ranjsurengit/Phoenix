@@ -13,7 +13,8 @@ export class ContactPage{
         this.contactNameLinks = page.locator('tbody .cdk-column-name a');
         this.contactName = page.locator('.record-view-name-label');
         this.searchContactInput = page.getByRole('textbox', { name: 'Search' });
-        this.searchResult = page.locator('iframe').contentFrame().getByRole('heading', { name: 'Results' });
+        this.resultsFrame = page.frameLocator('iframe').last();
+        this.searchResult = this.resultsFrame.getByRole('heading', { name: 'Results' });
         this.cancelButton = page.getByRole('button', { name: 'Cancel' });
         this.viewContactPageTitle = page.getByText('CONTACTS', { exact: true });
         this.totalContactRecord = page.locator('scrm-table-header .pagination-count');
@@ -58,12 +59,14 @@ export class ContactPage{
     async searchContact(name){
         await this.searchContactInput.fill(name);
         await this.searchContactInput.press('Enter');
-        await expect(this.contactNameLinks.filter({ hasText: name}).first()).toBeVisible({timeout: 30000});
-    }
-    async verifySearchResults(name){
-        await expect(this.searchResult).toBeVisible({timeout: 30000});
+       // await expect(this.contactNameLinks.filter({ hasText: name}).first()).toBeVisible({timeout: 30000});
     }
 
+    async verifySearchResults(name){
+       await expect(this.searchResult).toBeVisible({ timeout: 30000 });
+       await expect(this.resultsFrame.getByText(new RegExp(name, 'i')).first())
+            .toBeVisible({ timeout: 30000 });
+   }
     async clickCancelButton(){
         await this.cancelButton.click();
         await expect(this.contactNameLinks.first()).toBeVisible({timeout: 30000});
